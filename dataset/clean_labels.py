@@ -30,4 +30,3 @@ if __name__ == "__main__":
                             c_l.append(1)
 
                     writer.writerow(c_l)
-    
