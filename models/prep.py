@@ -1,3 +1,6 @@
+from tensorflow.keras.applications.inception_v3 import preprocess_input
+import tensorflow as tf
+
 class Preparation():
     """
         Class that stores all the functions that are necessary

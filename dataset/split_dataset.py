@@ -15,19 +15,7 @@ def heuristic(s1, s2):
         :return: Closeness value
     """
     score = 0
-
-    # for t_sent in s1:
-    #     for d_sent in s2:
-    #         words = t_sent.split(" ")
-    #         total_words += len(words)
-    #         for w in words:
-    #             if w not in unique and w in d_sent:
-    #                 if w in STRONG_WORDS:
-    #                     score += 10
-    #                 else:
-    #                     score += 1
-
-    #                 unique[w] = 1
+    
     for t_sent in s1:
         if t_sent in s2:
             score += 1
