@@ -1,5 +1,6 @@
 from tensorflow.keras.applications.inception_v3 import preprocess_input
 import tensorflow as tf
+import numpy as np
 
 class Preparation():
     """
@@ -19,6 +20,7 @@ class Preparation():
         return img, image_path
 
     # Load image embedding
-    def map_func(self, image_name, caption):
-        image_tensor = np.load(image_name.decode('utf-8')+'.npy')
-        return img_tensor, caption
+    def map_func(self, targ_name, dis_name):
+        targ_tensor = np.load("../dataset/prep_data/" + targ_name.decode('utf-8')+'.npy')
+        dis_tensor = np.load("../dataset/prep_data/" + dis_name.decode('utf-8')+'.npy')
+        return targ_tensor, dis_tensor
