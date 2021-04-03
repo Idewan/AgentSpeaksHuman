@@ -44,6 +44,7 @@ class GRU_Decoder(tf.keras.Model):
                                         recurrent_initializer='glorot_uniform')
         self.fc1 = tf.keras.layers.Dense(self.units)
         self.fc2 = tf.keras.layers.Dense(vocab_size)
+        self.softmax =  tf.keras.layers.Softmax()
 
         self.attention = BahdanauAttention(self.units)
 
@@ -58,6 +59,7 @@ class GRU_Decoder(tf.keras.Model):
         x =  self.fc1(output)
         x = tf.reshape(x, (-1, x.shape[2]))
         x = self.fc2(x)
+
         return x, state, attention_weights
     
     def reset_state(self, batch_size):

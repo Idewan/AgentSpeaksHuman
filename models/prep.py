@@ -1,4 +1,4 @@
-from tensorflow.keras.applications.inception_v3 import preprocess_input
+from tensorflow.keras.applications.resnet50 import preprocess_input
 import tensorflow as tf
 import numpy as np
 
@@ -21,6 +21,6 @@ class Preparation():
 
     # Load image embedding
     def map_func(self, targ_name, dis_name):
-        targ_tensor = np.load("../dataset/prep_data/" + targ_name.decode('utf-8')+'.npy')
-        dis_tensor = np.load("../dataset/prep_data/" + dis_name.decode('utf-8')+'.npy')
+        targ_tensor = np.load("../dataset/prep_data/" + targ_name.decode('utf-8')+'.jpg.npy')
+        dis_tensor = np.load("../dataset/prep_data/" + dis_name.decode('utf-8')+'.jpg.npy')
         return targ_tensor, dis_tensor
