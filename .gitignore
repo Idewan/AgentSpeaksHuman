@@ -130,6 +130,9 @@ dmypy.json
 
 #Other
 *.jpg
+*.pdf
+*.png
+*.pptx
 
 #Models
 *.data-00000-of-00001

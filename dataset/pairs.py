@@ -1,14 +1,15 @@
 import json
 import random
 
-from tqdm import tqdm
+from tqdm import trange
 
 #Test set heuristic
-STRONG_WORDS = ["bald.", "bangs.", "big lips.", "big nose.", "black", "blond", "brown", "chubby.",
-             "double chin.", "eyeglasses.", "goatee.", "gray", "", "mustache.", "beard.", "oval face.",
-             "pale skin.", "pointy nose.", "receding hairline.", "rosy cheeks.", "sideburns.", "smiling.",
-             "straight", "wavy", "wearing earings.", "wearing a hat.", "wearing lipstick.", "wearing a necklace.",
-              "wearing a necktie.", "younger.", "older.", "hair", "He", "She", "she", "he"]
+WEAKER_WORDS = ["He", "She", "she", "he", "big", "rosy", "a", "wearing", "receding","oval","hair","pointy", "pale"]
+STRONG_WORDS = ["lips.", "nose.", "black", "blond", "brown", "gray", "face.",
+             "skin.", "hairline.", "cheeks.", "smiling.",
+             "straight", "wavy", "earings.", "lipstick.", "necklace.",
+            "necktie.", "younger.", "older.",  "double chin."]
+VERY_STRONG_WORDS = ["chubby.", "eyeglasses.", "bangs.", "sideburns.", "beard.", "goatee.", "mustache.", "bald.", "hat."]
 
 def heuristic_listener(s1, s2):
     """
@@ -21,27 +22,35 @@ def heuristic_listener(s1, s2):
     #check numbers of in 
     #add it all up divide by length add to an array
     #pick argmax return the best_caption
-    worst_score = 10000
+    best_score = 0
     best_cap = 0
+    word_choices = {}
+
+    for j in range(len(s2)):
+        c_score = 0
+        d_s = s2[j].split(" ")
+
+        for k in range(len(d_s)):
+            if d_s[k] not in word_choices:
+                word_choices[d_s[k]] = 1
 
     for i in range(len(s1)):
         t_s = s1[i].split(" ")
-        t_s_dict = dict.fromkeys(t_s, 1)
-
-        for j in range(len(s2)):
-            c_score = 0
-            d_s = s2[j].split(" ")
-
-            for k in range(len(d_s)):
-                if d_s[k] in t_s_dict:
-                    if d_s[k] in STRONG_WORDS:
-                        c_score += 10
-                    else:
-                        c_score += 1
-            print(c_score, worst_score)
-            if c_score < worst_score:
-                worst_score = c_score
-                best_cap = i
+        c_score = 0 
+        for k in range(len(t_s)):
+            if t_s[k] not in word_choices:
+                if t_s[k] in VERY_STRONG_WORDS:
+                    c_score += 30
+                    print("yes sir")
+                elif t_s[k] in STRONG_WORDS:
+                    c_score += 5
+                elif t_s[k] in WEAKER_WORDS:
+                    c_score += 2
+                else:
+                    c_score += 1
+        if c_score > best_score:
+            best_score = c_score
+            best_cap = i
     
     return s1[best_cap]
 
@@ -73,7 +82,7 @@ if __name__ == "__main__":
     distractor_paths = list()
     best_captions = list()
 
-    for _ in range(2200):
+    for _ in trange(2200):
         random_numbers = []
         image_base = image_paths[0]
 
@@ -86,7 +95,7 @@ if __name__ == "__main__":
 
             in_record = (image_base in record and record[image_base] == image_pot) or (image_pot in record and record[image_pot] == image_base)
 
-            if (num not in random_numbers) and (score < 1) and (not in_record):
+            if (num not in random_numbers) and (score == 0) and (not in_record):
                 random_numbers.append(num)
         
         for k in random_numbers:
@@ -107,7 +116,7 @@ if __name__ == "__main__":
     print(len(target_paths))
     print(len(distractor_paths))
 
-    for i in range(len(target_paths)):
+    for i in trange(len(target_paths)):
         c_tp = target_paths[i]
         c_dp = distractor_paths[i]
         
@@ -117,9 +126,9 @@ if __name__ == "__main__":
         best_caption = heuristic_listener(c_tp_c,c_dp_c)
         best_captions.append(best_caption)
         
-    json_f['best_captions'] = best_captions
+    json_f['easy_captions'] = best_captions
 
-    with open('best_captions.json', 'w') as jfw:
+    with open('easy_captions.json', 'w') as jfw:
         json.dump(json_f, jfw)
 
     print('Done!')

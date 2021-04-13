@@ -11,11 +11,11 @@ class GRU_Encoder(tf.keras.Model):
                                    recurrent_initializer='glorot_uniform')
 
   def call(self, x, hidden):
-    x = self.embedding(x)
+    # x = self.embedding(x)
 
     output, state = self.gru(x, initial_state = hidden)
 
-    return output, state
+    return output
 
   def reset_state(self, batch_size):
     return tf.zeros((batch_size, self.units))

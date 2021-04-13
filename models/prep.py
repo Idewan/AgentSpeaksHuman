@@ -24,3 +24,9 @@ class Preparation():
         targ_tensor = np.load("../dataset/prep_data/" + targ_name.decode('utf-8')+'.jpg.npy')
         dis_tensor = np.load("../dataset/prep_data/" + dis_name.decode('utf-8')+'.jpg.npy')
         return targ_tensor, dis_tensor
+    
+    #Load image embedding and associate the appropriate caption
+    def map_func_oracle(self, targ_name, dis_name, cap):
+        targ_tensor = np.load("../dataset/prep_data/" + targ_name.decode('utf-8')+'.jpg.npy')
+        dis_tensor = np.load("../dataset/prep_data/" + dis_name.decode('utf-8')+'.jpg.npy')
+        return targ_tensor, dis_tensor, cap
