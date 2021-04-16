@@ -2,6 +2,10 @@ import json
 
 from collections import Counter
 
+"""
+    This was to extract statistics about the captions. How many individual words, vocab_size, longest_caption.
+"""
+
 if __name__ == "__main__":
     with open("captions.json") as jf:
         data = json.load(jf)

@@ -95,7 +95,7 @@ if __name__ == "__main__":
 
             in_record = (image_base in record and record[image_base] == image_pot) or (image_pot in record and record[image_pot] == image_base)
 
-            if (num not in random_numbers) and (score == 0) and (not in_record):
+            if (num not in random_numbers) and (score < 1) and (not in_record) and (score > 0): #Difference (only takes pairs with a score between 1 and 0)
                 random_numbers.append(num)
         
         for k in random_numbers:
@@ -126,9 +126,9 @@ if __name__ == "__main__":
         best_caption = heuristic_listener(c_tp_c,c_dp_c)
         best_captions.append(best_caption)
         
-    json_f['easy_captions'] = best_captions
+    json_f['best_captions'] = best_captions
 
-    with open('easy_captions.json', 'w') as jfw:
+    with open('best_captions.json', 'w') as jfw:
         json.dump(json_f, jfw)
 
     print('Done!')

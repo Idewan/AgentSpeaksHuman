@@ -1,6 +1,11 @@
 import json
 import os, sys
 
+"""
+Removes from the author's directory the non_unique identities and places them in a 
+prep_data directory.
+
+"""
 
 if __name__ == "__main__":
     #import json file photos_identities.json

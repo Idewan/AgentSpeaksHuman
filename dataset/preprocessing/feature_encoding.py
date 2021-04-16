@@ -6,6 +6,13 @@ from ..models.prep import Preparation
 
 from tqdm import tqdm
 
+"""
+Feature Encoding pre-loads Resnet50 trained on imagenet weights without the last softmax layer.
+It then encodes the images that were cleaned up so that there are no duplicates by another script.
+It saves all the encodings as dataset/prep_data/*.npy.
+
+"""
+
 if __name__ == "__main__":
 
     image_model = tf.keras.applications.ResNet50(include_top=False, weights='imagenet')

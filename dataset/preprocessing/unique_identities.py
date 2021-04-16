@@ -1,5 +1,9 @@
 import json
 
+"""
+    Creates a record of unique identities within the dataset.
+"""
+
 if __name__ == "__main__":
     identities = {} 
     keep = []

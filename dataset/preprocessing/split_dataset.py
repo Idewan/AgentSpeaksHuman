@@ -1,6 +1,12 @@
 import json
 import statistics
 
+"""
+    Splits the dataset based on key important strong_words. This was essentially depreciated in favour of 
+    pairs.py
+
+"""
+
 THRESHOLD = 0
 STRONG_WORDS = ["bald.", "bangs.", "big lips.", "big nose.", "black", "blond", "brown", "chubby.",
              "double chin.", "eyeglasses.", "goatee.", "gray", "", "mustache.", "beard.", "oval face.",

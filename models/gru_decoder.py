@@ -1,7 +1,10 @@
 import tensorflow as tf
 
 """
-    Bahdanau Attention -- 
+    Bahdanau Attention
+    Helped by:
+    https://www.tensorflow.org/tutorials/text/image_captioning
+    https://arxiv.org/pdf/1502.03044.pdf
 """
 class BahdanauAttention(tf.keras.Model):
     def __init__(self, units):
@@ -13,13 +16,9 @@ class BahdanauAttention(tf.keras.Model):
     def call(self, features, hidden):
         #Hidden shape
         hidden_with_time_axis = tf.expand_dims(hidden, 1)
-
-        #Attention hidden layer
-        attention_hidden_layer = (tf.nn.tanh(self.W1(features) + 
-                                  self.W2(hidden_with_time_axis)))
         
         #Unformalized score for each image features
-        score = self.V(attention_hidden_layer)
+        score = self.V(tf.nn.tanh(self.W1(features) + self.W2(hidden_with_time_axis)))
 
         #Attention weights
         attention_weights = tf.nn.softmax(score, axis=1)
@@ -31,7 +30,7 @@ class BahdanauAttention(tf.keras.Model):
         return context_vector, attention_weights
 
 """
-    LSTM Decoder 
+    GRU Decoder 
 """
 class GRU_Decoder(tf.keras.Model):
     def __init__(self, embedding_dim, units, vocab_size):

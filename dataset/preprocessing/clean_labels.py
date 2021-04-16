@@ -1,6 +1,12 @@
 import csv
 import json
 
+"""
+Clean labels goes through the origin labels.csv file and extracts only those that we want
+to select. Only run once.
+
+"""
+
 if __name__ == "__main__":
     with open("photos_identities.json") as jf:
         data = json.load(jf)

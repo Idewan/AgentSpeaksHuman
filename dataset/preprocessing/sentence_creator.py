@@ -7,6 +7,13 @@ import pandas as pd
 
 #  Use JSON file identities - photos
 
+"""
+Sentence Creator. Based on the extracted "important labels" transforms a boolean table into a 
+sequence of captions that follow a predefined sentence structure. The sentence structures can be
+seen below.
+
+"""
+
 def is_male(s):
     return f"He is {s}"
 
